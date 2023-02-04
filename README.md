@@ -7,7 +7,7 @@
 - [x] Configure the repo locally
 - [x] Create the branches main/master and development
 - [x] Create a feature branch and add some new commits in it 
-- [ ] Merge a feature branch and a development branch
+- [x] Merge a feature branch and a development branch
 - [ ] Play with tags 
 
 ### Task 2
