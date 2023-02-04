@@ -8,6 +8,6 @@
 - [x] Create the branches main/master and development
 - [x] Create a feature branch and add some new commits in it 
 - [x] Merge a feature branch and a development branch
-- [ ] Play with tags 
+- [x] Play with tags 
 
 ### Task 2
