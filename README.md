@@ -1,7 +1,12 @@
-# WA
-WA test repo
+# WA repo
 
 ## What is here?
 
-Here is test records for the homework 1
+### Task 1
+[x] Create a GitHub repo  [Iurii Sadovskyi repo](https://github.com/sigella/WA)
+[] Configure the repo locally
+[x] Create the branches main/master and development
+[] 
+[]
 
+### Task 2
