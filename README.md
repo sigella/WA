@@ -1,2 +1,0 @@
-# WA
-WA test repo
