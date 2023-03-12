@@ -1,28 +1,19 @@
 #cloud-config
 autoinstall:
   version: 1
-  apt:
-    geoip: true
-    preserve_sources_list: false
-    primary:
-    - arches: [amd64, i386]
-      uri: http://de.archive.ubuntu.com/ubuntu
-    - arches: [default]
-      uri: http://ports.ubuntu.com/ubuntu-ports
-  identity: 
-    hostname: ubuntu-server
-    password: "$6$exDY1mhS4KUYCE/2$zmn9ToZwTKLhCw.b4/b.ZRTIZM30JZ4QrOQ2aOXJ8yk96xpcCof0kxKwuX1kqLG/ygbJ1f8wxED22bTL4F46P0"
-    realname: ubuntu
-    username: ubuntu
-  network:
-    network:
-      version: 2       
-      ethernets:
-        enp0s3:
-          dhcp4: yes
-  keyboard: 
-    layout: us
-  locale: en_US
+  identity:
+    hostname: vagrant
+    username: vagrant
+    password: '$6$rounds=4096$5CU3LEj/MQvbkfPb$LmKEF9pCfU8R.dA.GemgE/8GT6r9blge3grJvdsVTMFKyLEQwzEF3SGWqAzjawY/XHRpWj4fOiLBrRyxJhIRJ1'
+  early-commands:
+    # otherwise packer tries to connect and exceed max attempts:
+    - systemctl stop ssh.service
+    - systemctl stop ssh.socket
   ssh:
+    install-server: yes
     allow-pw: yes
-    install-server: true
+  late-commands:
+      - 'sed -i "s/dhcp4: true/&\n      dhcp-identifier: mac/" /target/etc/netplan/00-installer-config.yaml'
+      - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant
+      # Enable hyper-v daemons only if using hyper-v virtualization
+      - if [ $(virt-what) == "hyperv" ]; then apt-get update && apt-get install -y hyperv-daemons linux-tools-$(uname -r) linux-cloud-tools-$(uname -r) linux-cloud-tools-common cifs-utils && systemctl enable hypervvssd && systemctl enable hypervkvpd && systemctl start hypervvssd && systemctl start hypervkvpd; fi
